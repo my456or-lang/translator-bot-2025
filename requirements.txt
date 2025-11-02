@@ -1,0 +1,6 @@
+python-telegram-bot==20.7
+openai-whisper
+googletrans==4.0.0rc1
+pysrt
+torch
+torchaudio
