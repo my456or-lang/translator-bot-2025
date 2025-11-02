@@ -3,7 +3,7 @@ import sys
 from telegram import Update
 from telegram.ext import Application, CommandHandler, MessageHandler, filters, ContextTypes
 import whisper
-from googletrans import Translator
+from deep_translator import GoogleTranslator
 import pysrt
 import subprocess
 from datetime import timedelta
@@ -15,7 +15,7 @@ TEMP_DIR = "temp_files"
 # בדיקה שיש TOKEN
 if not TELEGRAM_TOKEN:
     print("❌ ERROR: TELEGRAM_TOKEN environment variable not set!")
-    print("Please set it in Railway dashboard: Variables → New Variable")
+    print("Please set it in Render dashboard: Environment → Add Variable")
     sys.exit(1)
 
 # יצירת תיקייה זמנית
@@ -28,8 +28,6 @@ print("=" * 60)
 print("🔄 Loading Whisper AI model (this takes a minute)...")
 whisper_model = whisper.load_model("base")
 print("✅ Whisper model loaded successfully!")
-
-translator = Translator()
 
 def format_timestamp(seconds):
     """המרת שניות לפורמט SRT"""
@@ -50,8 +48,8 @@ def transcribe_audio(audio_path):
 def translate_to_hebrew(text):
     """תרגום לעברית"""
     try:
-        translation = translator.translate(text, src='en', dest='he')
-        return translation.text
+        translation = GoogleTranslator(source='en', target='he').translate(text)
+        return translation
     except Exception as e:
         print(f"⚠️ Translation warning: {e}")
         return text
