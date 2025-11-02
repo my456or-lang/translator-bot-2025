@@ -1,4 +1,4 @@
 python-telegram-bot==20.7
-openai-whisper==20230314
-googletrans==4.0.0rc1
+openai-whisper
+deep-translator
 pysrt
